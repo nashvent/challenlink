@@ -2,9 +2,29 @@
 
 function findPoint($strArr)
 {
-    // code goes here
-    return $strArr;
+    $firstList = array_map("intval", explode(",", $strArr[0]));
+    $secondList = array_map("intval", explode(",", $strArr[1]));
+    $max = (end($firstList) > end($secondList)) ? end($firstList) : end($secondList);  
+    $countArray = array_fill(0, $max + 1, 0);
+
+    foreach($firstList as $number){
+        $countArray[$number] += 1;
+    }
+
+    foreach($secondList as $number){
+        $countArray[$number] += 1;
+    }
+    
+    $resultList = [];
+    foreach($countArray as $index=>$counter){
+        if($counter>1){
+            array_push($resultList, $index);
+        }
+    }
+    return [ count($resultList)>0 ? implode(", ",$resultList) : "false"];
 }
 
 // keep this function call here
-echo findPoint(['1, 3, 4, 7, 13', '1, 2, 4, 13, 15']);
+print_r (findPoint(['3, 4, 7, 13', '1,4, 2, 13, 15']) );
+
+?>
